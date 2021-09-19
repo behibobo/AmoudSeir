@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20210509110753) do
     t.string "address"
     t.string "service_day"
     t.integer "stops", limit: 2
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "insurance_type"
     t.decimal "lat", precision: 10, scale: 6
     t.decimal "lng", precision: 10, scale: 6
@@ -45,24 +45,24 @@ ActiveRecord::Schema.define(version: 20210509110753) do
     t.bigint "dept"
     t.integer "payment_type"
     t.bigint "contract_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["contract_id"], name: "index_customer_transactions_on_contract_id"
     t.index ["customer_id"], name: "index_customer_transactions_on_customer_id"
   end
 
   create_table "deny_reasons", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "deny_services", force: :cascade do |t|
     t.bigint "service_id"
     t.bigint "user_id"
     t.bigint "deny_reason_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "handled", default: false
     t.index ["deny_reason_id"], name: "index_deny_services_on_deny_reason_id"
     t.index ["service_id"], name: "index_deny_services_on_service_id"
@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(version: 20210509110753) do
     t.bigint "standard_id"
     t.string "standard_finish_date"
     t.integer "standard_type", limit: 2
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["contract_id"], name: "index_elevators_on_contract_id"
     t.index ["insurance_id"], name: "index_elevators_on_insurance_id"
     t.index ["standard_id"], name: "index_elevators_on_standard_id"
@@ -109,23 +109,23 @@ ActiveRecord::Schema.define(version: 20210509110753) do
 
   create_table "insurances", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "phone"
   end
 
   create_table "items", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "message_statuses", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "message_id"
     t.integer "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["message_id"], name: "index_message_statuses_on_message_id"
     t.index ["user_id"], name: "index_message_statuses_on_user_id"
   end
@@ -135,23 +135,23 @@ ActiveRecord::Schema.define(version: 20210509110753) do
     t.string "body"
     t.bigint "to_id"
     t.integer "message_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "status", default: 0
     t.index ["to_id"], name: "index_messages_on_to_id"
   end
 
   create_table "reasons", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "service_items", force: :cascade do |t|
     t.bigint "service_id"
     t.bigint "item_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_service_items_on_item_id"
     t.index ["service_id"], name: "index_service_items_on_service_id"
   end
@@ -161,8 +161,8 @@ ActiveRecord::Schema.define(version: 20210509110753) do
     t.string "name"
     t.integer "qty", limit: 2
     t.bigint "price"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["service_id"], name: "index_service_parts_on_service_id"
   end
 
@@ -171,8 +171,8 @@ ActiveRecord::Schema.define(version: 20210509110753) do
     t.bigint "user_id"
     t.integer "request_type", limit: 2
     t.integer "status", limit: 2
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "reason_id", limit: 2
     t.date "service_date"
     t.decimal "lat", precision: 10, scale: 6
@@ -183,8 +183,8 @@ ActiveRecord::Schema.define(version: 20210509110753) do
 
   create_table "standards", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "phone"
   end
 
@@ -195,8 +195,8 @@ ActiveRecord::Schema.define(version: 20210509110753) do
     t.string "password_digest"
     t.integer "role", limit: 2
     t.integer "gender", limit: 2
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "status"
     t.string "cell"
     t.string "firebase_token"
