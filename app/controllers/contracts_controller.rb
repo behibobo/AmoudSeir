@@ -23,8 +23,20 @@ class ContractsController < ApplicationController
       ids = @contracts.select {|c| c.customer.full_name.include? params[:customer_name]}
       @contracts = @contracts.where(id: ids.map(&:id))
     end
-    
+
+    if params[:sort]
+      return if params[:sort] == "service_dept" || params[:sort] == "customer_name"
+      if params[:desc] == "true"
+        @contracts = Contract.where(id: @contracts.map {|con| con.id}.uniq).order("#{params[:sort]}::integer DESC")
+      else
+        @contracts = Contract.where(id: @contracts.map {|con| con.id}.uniq).order("#{params[:sort]}::integer ASC")
+      end
+    end
+
     result = @contracts.paginate(page: params[:page], per_page: params[:per_page])
+
+    
+
     render json: {
       result: ActiveModelSerializers::SerializableResource.new(result),
       total_page: (@total_records.to_f / params[:per_page].to_f).ceil,
