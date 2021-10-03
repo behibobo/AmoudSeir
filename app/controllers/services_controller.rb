@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  skip_before_action :authenticate_request
+  # skip_before_action :authenticate_request
 
   def index
     @services = Service.where.not(status: :denied)
