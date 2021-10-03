@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
     today = Date.today
     tomorrow = Date.tomorrow
 
-    contracts = Contract.includes([:user, :customer]).all
+    contracts = Contract.includes([:user, :customer, :services]).all
     
     @services = []
     (1..30).each do |item|
@@ -67,7 +67,7 @@ class DashboardController < ApplicationController
   end
 
   def contracts
-    contracts = Contract.includes([:elevators, :user, :customer]).order(:created_at)
+    contracts = Contract.includes([:elevators, :user, :customer, :services]).order(:created_at)
 
     @due_contracts = contracts.where('finish_date < ?', Date.today + 2.month)
     .map{|c| {
@@ -132,10 +132,11 @@ class DashboardController < ApplicationController
   end
 
   def assign_user
-    @denied = DenyService.find params[:deny_service_id]
-    @service = Service.find @denied.service.id
+    @service = Service.find params[:deny_service_id]
+    @denied = DenyService.find_by(service_id: @service.id)
     @service.user_id = params[:technician_id]
     @denied.handled = true
+    @service.status = "open"
     @denied.save
     @service.save
     render json: @denied

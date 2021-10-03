@@ -91,7 +91,7 @@ class ServicesController < ApplicationController
   def deny_service
     @service = Service.find(params[:service_id])
     @service.status = :denied
-    @service.save
+    @service.save!
     DenyService.create(
       service: @service,
       deny_reason_id: params[:deny_reason_id],
