@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
     today = Date.today
     tomorrow = Date.tomorrow
 
-    contracts = Contract.includes([:user, :customer, :services]).all
+    contracts = Contract.includes([:user, :customer, :services, :elevators]).all
     
     @services = []
     (1..30).each do |item|

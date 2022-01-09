@@ -2,7 +2,12 @@ class ServicesController < ApplicationController
   # skip_before_action :authenticate_request
 
   def index
-    @services = Service.where.not(status: :denied)
+    @services = Service.includes(:contract).where.not(status: :denied)
+
+    if params["keyword"] && !params["keyword"].empty?
+      @services = @services.joins(contract: :customer).where('users.first_name like ? or users.last_name like ? or users.cell = ?', "%#{params["keyword"]}%", "%#{params["keyword"]}%", params["keyword"])
+    end
+
     @total_records = @services.count
 
     if params[:contract_id]
